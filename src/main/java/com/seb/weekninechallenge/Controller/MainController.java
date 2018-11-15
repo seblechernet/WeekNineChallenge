@@ -49,10 +49,9 @@ public class MainController {
     }
 
     @RequestMapping("/userPage")
-    public String list(Model model,@ModelAttribute Post post) {
+    public String list(Model model) {
 
         model.addAttribute("posts", postRepository.findAll());
-
 
         return "userpage";
     }
@@ -66,17 +65,28 @@ public class MainController {
 
 
     @RequestMapping(value="/register",method= RequestMethod.POST)
-    public String showRegestrationPage(@Valid @ModelAttribute("appUser") AppUser appUser, BindingResult result, Model model){
+    public String showRegestrationPage(@Valid @ModelAttribute("appUser") AppUser appUser, BindingResult result, Model model,@RequestParam MultipartFile file){
         model.addAttribute("appUser",appUser);
+
+        if (file.isEmpty()){
+            return "redirect:/add";
+        }
+        try{
+
+            Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype","auto"));
+            appUser.setPicture(uploadResult.get("url").toString());
+            userService.saveUser(appUser);
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+            return "redirect:/registration";
+        }
         if (result.hasErrors())
         {
-            return "registration";
+            return "redirecr:/registration";
         }
-        else
-        {
-            userService.saveUser(appUser);
-            model.addAttribute("massage","USer Account Created");
-        }
+
         return "redirect:/";
     }
 
@@ -84,15 +94,20 @@ public class MainController {
     public String login() {
         return "login";
     }
-//    @RequestMapping("/add")
-//    public String addAccount(Model model){
-//
-//        model.addAttribute("room",new Room());
-//
-//        return "roomform";
-//    }
-//    @PostMapping("/process")
-//    public String process(@RequestParam MultipartFile file, Room room, Authentication auth){
+
+    @GetMapping("/post")
+    public String addAccount(Model model){
+
+        model.addAttribute("post",new Post());
+
+        return "write";
+    }
+    @PostMapping("/process")
+    public String process(Post post, Authentication auth){
+
+        AppUser appUser=appUserRepository.findByUserName(auth.getName());
+        post.setPostedBy(appUser);
+        postRepository.save(post);
 //        if (file.isEmpty()){
 //            return "redirect:/add";
 //        }
@@ -106,13 +121,15 @@ public class MainController {
 //        }
 //        catch (IOException e){
 //            e.printStackTrace();
+
+//
 //            return "redirect:/add";
 //        }
-//
-////        AppUser appUser=((CustomUserDetails)((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getUser();
-//
-//        return "redirect:/";
-//    }
+
+//        AppUser appUser=((CustomUserDetails)((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getUser();
+
+        return "redirect:/";
+    }
 //
 //    @RequestMapping("/listmyrooms")
 //    public String ListMyRooms(Model model, Authentication auth){
@@ -125,13 +142,24 @@ public class MainController {
 //    }
     @RequestMapping("/detail/{postId}")
     public String showMore(@PathVariable("postId") long postid, Model model){
-        model.addAttribute("postedBy",postRepository.findById(postid).get().getPostedBy().getUserName());
+
         System.out.println(postid);
         model.addAttribute("post", postRepository.findById(postid).get());
+        model.addAttribute("postedBy",postRepository.findById(postid).get().getPostedBy().getUserName());
 
         return "showmore";
     }
-//    @RequestMapping("/user/update/{roomId}")
+
+    @RequestMapping("/post/{userId}")
+    public String profile(@PathVariable("userId") long userId, Model model){
+
+        model.addAttribute("appUser", postRepository.findById(userId).get());
+
+
+        return "profile";
+    }
+
+    //    @RequestMapping("/user/update/{roomId}")
 //    public String updateUser(@PathVariable("roomId") long roomId, Model model){
 //
 //

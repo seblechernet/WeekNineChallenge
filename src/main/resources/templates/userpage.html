@@ -24,8 +24,6 @@
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-
-                        <th></th>
                         <th>Picture</th>
                         <th>Post Title</th>
                         <th>Posted by</th>
@@ -36,20 +34,17 @@
                     <tbody>
                     <tr th:each="post : ${posts}">
                         <td>
-                            No pic
-                            <!--<div th:if="${user.picture} != null">-->
-                                <!--<img th:src="${user.picture}" />-->
-                                <!--<hr />-->
-                            <!--</div>-->
+                            <div th:if="${post.postedBy?.picture} != null">
+                                <img th:src="${post.postedBy?.picture}" />
+                                <hr />
+                            </div>
                         </td>
+                       <td th:text="${post.title}"></td>
 
-                        <td th:text="${post.title}"></td>
-
-                        </td>
-
-                        <td th:text="${postedBy.userName}"></td>
+                       <td>
+                           <a href="@{/profile/{userId}(userId=${post.postedBy?.userId})}"> <span th:text="${post.postedBy?.userName}"></span> </a>
+                       </td>
                         <td>
-
                             <a class="btn btn-info" role="button" th:href="@{/detail/{postId}(postId=${post.postId})}">Show
                                 More</a>
                         </td>

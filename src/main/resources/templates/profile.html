@@ -16,12 +16,15 @@
 <body>
 <div th:replace="base :: navlinks"></div>
 
-Title :<span th:text="${post.title}"></span><br />
-Posted By :<span th:text="${post.postedBy?.userName}"></span><br />
-Content:<span th:text="${post.content}"></span><br />
-<div th:if="${post.postedBy?.picture} != null">
-<img th:src="${post.postedBy?.picture}" />
-<hr />
+First Name :<span th:text="${appUser.firstName}"></span><br />
+Last Name :<span th:text="${appUser.lasName}"></span><br />
+Email:<span th:text="${appUser.email}"></span><br />
+User Name:<span th:text="${appUser.userName}"></span><br />
+About:<span th:text="${appUser.aboutYou}"></span><br />
+
+<div th:if="${appUser.picture} != null">
+    <img th:src="${appUser.picture}" />
+    <hr />
 </div>
 
 <!--<a th:href="@{admin/update/{roomId}(roomId=${room.roomId})}">Update</a>-->

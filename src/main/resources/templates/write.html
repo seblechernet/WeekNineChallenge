@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Posting...</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+    <link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div th:replace="base :: navlinks"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <form action="#"
+                  th:action="@{/process}"
+                  th:object="${post}"
+                  method="post">
+                  <!--enctype="multipart/form-data">-->
+
+                <input type="hidden" th:field="*{postId}"/>
+                <div class="form-group">
+                    <input type="text" placeholder="Title" class="form-control" th:field="*{title}"/>
+                    <span th:if="${#fields.hasErrors('title')}"
+                          th:errors="*{title}"></span><br/>
+                </div>
+
+                <div class="form-group">
+
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write here...."
+                          th:field="*{content}"></textarea>
+                    <span th:if="${#fields.hasErrors('content')}">
+                    </span>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success">Post Now</button>
+    </form>
+</div>
+</div>
+</div>
+
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/popper/popper.min.js"></script>
+<script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="/assets/js/argon.min.js"></script>
+
+</body>
+</html>
