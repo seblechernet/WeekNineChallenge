@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>User Page</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+    <link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
+</head>
+<body >
+<div th:replace="base :: navlinks"></div>
+<div class="jumbotron jumbotron-fluid" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-9">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+
+                        <th></th>
+                        <th>Picture</th>
+                        <th>Post Title</th>
+                        <th>Posted by</th>
+                        <th>More</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td>
+                            <div th:if="${user.picture} != null">
+                                <img th:src="${user.picture}" />
+                                <hr />
+                            </div>
+                        </td>
+
+                        <td th:text="${post.title}"></td>
+
+                        </td>
+
+                        <td th:text="${user.userName}"></td>
+                        <td>
+
+                            <!--<a class="btn btn-info" role="button" th:href="@{/detail/{postId}(postUd=${user.post.postId})}">Show-->
+                                <!--More</a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Core -->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/popper/popper.min.js"></script>
+<script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- Theme JS -->
+<script src="/assets/js/argon.min.js"></script>
+</body>
+</html>
