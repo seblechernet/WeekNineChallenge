@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show More</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+    <link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div th:replace="base :: navlinks"></div>
+
+Title :<span th:text="${post.title}"></span><br />
+Posted By :<span th:text="${post.postedBy}"></span><br />
+Content:<span th:text="${post.content}"></span><br />
+<!--Cabel:<span th:text="${room.cable}"></span><br />-->
+<!--Bath:<span th:text="${room.bath}"></span><br />-->
+<!--<div th:if="${room.pic} != null">-->
+<!--<img th:src="${room.pic}" />-->
+<!--<hr />-->
+<!--</div>-->
+
+<!--<a th:href="@{admin/update/{roomId}(roomId=${room.roomId})}">Update</a>-->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/popper/popper.min.js"></script>
+<script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- Theme JS -->
+<script src="/assets/js/argon.min.js"></script>
+</body>
+</html>

@@ -51,8 +51,8 @@ public class MainController {
     @RequestMapping("/userPage")
     public String list(Model model,@ModelAttribute Post post) {
 
-        model.addAttribute("users", appUserRepository.findAll());
-        model.addAttribute("post",post);
+        model.addAttribute("posts", postRepository.findAll());
+
 
         return "userpage";
     }
@@ -123,13 +123,14 @@ public class MainController {
 //
 //        return "listmyrooms";
 //    }
-//    @RequestMapping("/detail/{roomId}")
-//    public String showMore(@PathVariable("roomId") long roomId, Model model){
-//        System.out.println(roomId);
-//        model.addAttribute("room", roomRepository.findById(roomId).get());
-//
-//        return "showmore";
-//    }
+    @RequestMapping("/detail/{postId}")
+    public String showMore(@PathVariable("postId") long postid, Model model){
+        model.addAttribute("postedBy",postRepository.findById(postid).get().getPostedBy().getUserName());
+        System.out.println(postid);
+        model.addAttribute("post", postRepository.findById(postid).get());
+
+        return "showmore";
+    }
 //    @RequestMapping("/user/update/{roomId}")
 //    public String updateUser(@PathVariable("roomId") long roomId, Model model){
 //

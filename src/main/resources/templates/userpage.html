@@ -34,23 +34,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user : ${users}">
+                    <tr th:each="post : ${posts}">
                         <td>
-                            <div th:if="${user.picture} != null">
-                                <img th:src="${user.picture}" />
-                                <hr />
-                            </div>
+                            No pic
+                            <!--<div th:if="${user.picture} != null">-->
+                                <!--<img th:src="${user.picture}" />-->
+                                <!--<hr />-->
+                            <!--</div>-->
                         </td>
 
                         <td th:text="${post.title}"></td>
 
                         </td>
 
-                        <td th:text="${user.userName}"></td>
+                        <td th:text="${postedBy.userName}"></td>
                         <td>
 
-                            <!--<a class="btn btn-info" role="button" th:href="@{/detail/{postId}(postUd=${user.post.postId})}">Show-->
-                                <!--More</a>-->
+                            <a class="btn btn-info" role="button" th:href="@{/detail/{postId}(postId=${post.postId})}">Show
+                                More</a>
                         </td>
                     </tr>
                     </tbody>
