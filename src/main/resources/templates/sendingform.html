@@ -1,10 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sending...</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+    <link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
+
 </head>
 <body>
+
+<div th:replace="base :: navlinks"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <form action="#"
+                  th:action="@{/sending}"
+                  th:object="${message}"
+                  method="post">
+                <!--enctype="multipart/form-data">-->
+
+                <input type="hidden" th:field="*{mssgId}"/>
+
+                <div class="form-group">
+
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write here...."
+                          th:field="*{content}"></textarea>
+                    <span th:if="${#fields.hasErrors('content')}">
+                    </span>
+                </div>
+                <div class="form-group" id="sel1">
+                    <label for="sel1">TO:</label><br/>
+                    <select class="form-control" th:text="${message.to?.userName}">
+                        <option th:each="person : ${users}" th:value="${person.userName}">[[${person.userName}]]</option>
+                        <!--<select type="text" name="namedep" multiple class="form-control">-->
+                            <!--<option th:each="department:${departments}" th:value="${department.depName}">[[${department.depName}]]</option>-->
+                        <!--</select>-->
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success">Send Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/popper/popper.min.js"></script>
+<script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="/assets/js/argon.min.js"></script>
 
 </body>
 </html>

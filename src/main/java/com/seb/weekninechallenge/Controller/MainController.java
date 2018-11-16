@@ -4,6 +4,7 @@ package com.seb.weekninechallenge.Controller;
 import com.cloudinary.utils.ObjectUtils;
 import com.seb.weekninechallenge.Configuration.CloudinaryConfig;
 import com.seb.weekninechallenge.Model.AppUser;
+import com.seb.weekninechallenge.Model.Message;
 import com.seb.weekninechallenge.Model.Post;
 import com.seb.weekninechallenge.Repository.AppUserRepository;
 import com.seb.weekninechallenge.Repository.MessageRepository;
@@ -53,7 +54,7 @@ public class MainController {
 
         model.addAttribute("posts", postRepository.findAll());
 
-        return "userpage";
+        return "home";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -96,7 +97,7 @@ public class MainController {
     }
 
     @GetMapping("/post")
-    public String addAccount(Model model){
+    public String post(Model model){
 
         model.addAttribute("post",new Post());
 
@@ -130,16 +131,23 @@ public class MainController {
 
         return "redirect:/";
     }
-//
-//    @RequestMapping("/listmyrooms")
-//    public String ListMyRooms(Model model, Authentication auth){
-////        AppUser appUser=((CustomUserDetails)((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getUser();
-//        AppUser appUser=appUserRepository.findByUserName(auth.getName());
-//        model.addAttribute("myRooms",roomRepository.findAllByAppUser(appUser));
-//
-//
-//        return "listmyrooms";
-//    }
+    @GetMapping("/send")
+    public String sendMessage(Model model){
+
+        model.addAttribute("message",new Message());
+        model.addAttribute("users",appUserRepository.findAll());
+
+        return "sendingform";
+    }
+    @PostMapping("/sending")
+    public String sending(Message message, Authentication auth,AppUser to) {
+
+        AppUser appUser = appUserRepository.findByUserName(auth.getName());
+        message.setFrom(appUser);
+        messageRepository.save(message);
+        return "redirect:/";
+    }
+
 @RequestMapping("/detail/{postId}")
 public String showMore(@PathVariable("postId") long postid, Model model){
 

@@ -77,6 +77,10 @@
 
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/send">Compose New Massage</a>
+
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link" th:inline="text" sec:authorize="isAuthenticated()"> Hello, <span sec:authentication="name"> </span>!</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">

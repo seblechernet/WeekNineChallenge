@@ -18,6 +18,15 @@ public class Message {
     private AppUser to;
 
 
+    public Message() {
+    }
+
+    public Message(String content, AppUser from, AppUser to) {
+        this.setContent(content);
+        this.setFrom(from);
+        this.setTo(to);
+    }
+
     public long getMssgId() {
         return mssgId;
     }
