@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -140,14 +141,29 @@ public class MainController {
         return "sendingform";
     }
     @PostMapping("/sending")
-    public String sending(Message message, Authentication auth,AppUser to) {
+    public String sending(@RequestParam Long toUserId, @ModelAttribute Message message, Authentication auth) {
+
 
         AppUser appUser = appUserRepository.findByUserName(auth.getName());
         message.setFrom(appUser);
+        AppUser to=appUserRepository.findByUserId(toUserId);
+        message.setTo(to);
+        to.getInbox().add(message);
         messageRepository.save(message);
+
         return "redirect:/";
     }
 
+    @GetMapping("/inbox")
+    public String getInboxMessage(Authentication auth, Model model){
+        System.out.println(auth.getName());
+        AppUser to=appUserRepository.findByUserName(auth.getName());
+        System.out.println(to.getUserName());
+        List<Message> messages = messageRepository.findAllByTo(to);
+
+      model.addAttribute("messages", messages);
+        return "inbox";
+    }
 @RequestMapping("/detail/{postId}")
 public String showMore(@PathVariable("postId") long postid, Model model){
 
