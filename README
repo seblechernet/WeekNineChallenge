@@ -1,0 +1,7 @@
+Description of the application:
+
+Implements Spring Security
+Each user has a profile.
+A profile contains first name, last name, gravatar url, email address, about you.
+Users can view other user's profiles by clicking on user names but can only edit their own.
+Allow Direct Messages between users.
