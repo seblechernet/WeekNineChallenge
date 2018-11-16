@@ -55,11 +55,11 @@
            th:errors="*{userName}">USer Name Error</span></strong></mark>
     <label><input type="text" id="userName" placeholder="User Name"
                   th:field="*{userName}" /><br /></label>
-    User Name <mark><strong>
-     <span th:if="${#fields.hasErrors('aboutyou')}"
-           th:errors="*{aboutyou}">USer Name Error</span></strong></mark>
+    About You <mark><strong>
+     <span th:if="${#fields.hasErrors('aboutYou')}"
+           th:errors="*{aboutYou}">USer Name Error</span></strong></mark>
     <label><input type="text" id="aboutYou" placeholder="Tell Us Somehing About you"
-                  th:field="*{userName}" /><br /></label>
+                  th:field="*{aboutYou}" /><br /></label>
 
     Password <mark><strong>
      <span th:if="${#fields.hasErrors('password')}"

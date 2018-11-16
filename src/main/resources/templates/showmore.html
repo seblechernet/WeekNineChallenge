@@ -22,6 +22,7 @@ Content:<span th:text="${post.content}"></span><br />
 <div th:if="${post.postedBy?.picture} != null">
 <img th:src="${post.postedBy?.picture}" />
 <hr />
+
 </div>
 
 <!--<a th:href="@{admin/update/{roomId}(roomId=${room.roomId})}">Update</a>-->

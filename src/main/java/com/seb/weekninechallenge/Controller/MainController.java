@@ -43,12 +43,12 @@ public class MainController {
     @Autowired
     CloudinaryConfig cloudc;
 
-    @RequestMapping("/")
-    public String home(Model model) {
-        return "home";
-    }
+//    @RequestMapping("/")
+//    public String home(Model model) {
+//        return "home";
+//    }
 
-    @RequestMapping("/userPage")
+    @RequestMapping("/")
     public String list(Model model) {
 
         model.addAttribute("posts", postRepository.findAll());
@@ -69,7 +69,7 @@ public class MainController {
         model.addAttribute("appUser",appUser);
 
         if (file.isEmpty()){
-            return "redirect:/add";
+            return "redirect:/register";
         }
         try{
 
@@ -140,33 +140,34 @@ public class MainController {
 //
 //        return "listmyrooms";
 //    }
-    @RequestMapping("/detail/{postId}")
-    public String showMore(@PathVariable("postId") long postid, Model model){
+@RequestMapping("/detail/{postId}")
+public String showMore(@PathVariable("postId") long postid, Model model){
 
-        System.out.println(postid);
-        model.addAttribute("post", postRepository.findById(postid).get());
-        model.addAttribute("postedBy",postRepository.findById(postid).get().getPostedBy().getUserName());
+    System.out.println(postid);
+    model.addAttribute("post", postRepository.findById(postid).get());
+    model.addAttribute("postedBy",postRepository.findById(postid).get().getPostedBy().getUserName());
 
-        return "showmore";
-    }
+    return "showmore";
+}
 
-    @RequestMapping("/post/{userId}")
+
+    @RequestMapping("/profile/{userId}")
     public String profile(@PathVariable("userId") long userId, Model model){
 
-        model.addAttribute("appUser", postRepository.findById(userId).get());
+        model.addAttribute("appUser", appUserRepository.findById(userId).get());
 
 
         return "profile";
     }
 
-    //    @RequestMapping("/user/update/{roomId}")
-//    public String updateUser(@PathVariable("roomId") long roomId, Model model){
-//
-//
-//        model.addAttribute("room", roomRepository.findById(roomId).get());
-//
-//        return "roomform";
-//    }
+        @RequestMapping("/update/{userId}")
+    public String updateProfile(@PathVariable("userId") long userId, Model model){
+
+
+        model.addAttribute("appUser", appUserRepository.findById(userId).get());
+
+        return "registrationform";
+    }
 //    @RequestMapping("/admin/update/{roomId}")
 //    public String updateAdmin(@PathVariable("roomId") long roomId, Model model){
 //

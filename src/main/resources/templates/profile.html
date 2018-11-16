@@ -17,16 +17,24 @@
 <div th:replace="base :: navlinks"></div>
 
 First Name :<span th:text="${appUser.firstName}"></span><br />
-Last Name :<span th:text="${appUser.lasName}"></span><br />
+Last Name :<span th:text="${appUser.lastName}"></span><br />
 Email:<span th:text="${appUser.email}"></span><br />
 User Name:<span th:text="${appUser.userName}"></span><br />
 About:<span th:text="${appUser.aboutYou}"></span><br />
 
 <div th:if="${appUser.picture} != null">
-    <img th:src="${appUser.picture}" />
+    <img th:src="${appUser.picture}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover"
+         style="width: 200px;">
     <hr />
 </div>
+<div th:if="${appUser.picture} == null">
+    <img src="/assets/img/profile/myimg.jpg"
+         class="rounded-circle img-center img-fluid shadow shadow-lg--hover"
+         style="width: 200px;">
+</div>
 
+<a th:if="${#strings.equals(#authentication.name,appUser.userName)}"
+   th:href="@{/update/{userId}(userId=${appUser.userId})}">Edit details</a>
 <!--<a th:href="@{admin/update/{roomId}(roomId=${room.roomId})}">Update</a>-->
 <script src="/assets/vendor/jquery/jquery.min.js"></script>
 <script src="/assets/vendor/popper/popper.min.js"></script>
