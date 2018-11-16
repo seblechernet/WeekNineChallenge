@@ -26,7 +26,7 @@
                   method="post">
                 <!--enctype="multipart/form-data">-->
 
-                <input type="hidden" th:field="*{mssgId}"/>
+
 
                 <div class="form-group">
 
@@ -37,11 +37,9 @@
                 </div>
                 <div class="form-group" id="sel1">
                     <label for="sel1">TO:</label><br/>
-                    <select class="form-control" th:text="${message.to?.userName}">
-                        <option th:each="person : ${users}" th:value="${person.userName}">[[${person.userName}]]</option>
-                        <!--<select type="text" name="namedep" multiple class="form-control">-->
-                            <!--<option th:each="department:${departments}" th:value="${department.depName}">[[${department.depName}]]</option>-->
-                        <!--</select>-->
+                    <select class="form-control" name="toUserId">
+                        <option th:each="person : ${users}" th:value="${person.userId}" th:text="${person.userName}"></option>
+
                     </select>
                 </div>
 

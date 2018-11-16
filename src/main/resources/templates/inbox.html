@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Inbox</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+    <link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link type="text/css" href="/assets/css/argon.min.css" rel="stylesheet">
+
 </head>
 <body>
+<div th:replace="base :: navlinks"></div>
 
+
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th>From</th>
+                    <th>Content</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="message : ${messages}">
+                    <td>
+                     <div>   From  :<span th:text="${message.from?.userName}"></span><br /> </div>
+
+                    </td>
+                    <td>
+                    <div>Content:<span th:text="${message.content}"></span><br ></div>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<!--<a th:href="@{admin/update/{roomId}(roomId=${room.roomId})}">Update</a>-->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/popper/popper.min.js"></script>
+<script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- Theme JS -->
+<script src="/assets/js/argon.min.js"></script>
 </body>
 </html>
